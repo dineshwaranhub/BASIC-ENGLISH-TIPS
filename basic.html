@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Basic English Quiz</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f8;
+    }
+
+    .quiz-container {
+      max-width: 500px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .form-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .form-header img {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+
+    .form-header h1 {
+      font-size: 20px;
+      color: #333;
+      margin: 0;
+    }
+
+    .question {
+      margin-bottom: 18px;
+    }
+
+    .question label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .question input {
+      width: 100%;
+      padding: 10px;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      background: #f9f9f9;
+    }
+
+    .question input:focus {
+      border-color: #007bff;
+      outline: none;
+      background: #fff;
+    }
+
+    .wrong {
+      border: 2px solid red !important;
+      background: #ffe6e6 !important;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background-color: #0056b3;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 350px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .popup-content h2 {
+      margin: 0 0 15px;
+      color: #28a745;
+    }
+
+    .popup-content img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 600px) {
+      .quiz-container {
+        margin: 20px;
+      }
+
+      .form-header {
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .form-header img {
+        width: 50px;
+        height: 50px;
+      }
+
+      .form-header h1 {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="quiz-container">
+    <div class="form-header">
+      <img src="dna.png" alt="DNA Logo">
+      <h1>Basic English Quiz</h1>
+    </div>
+
+    <div class="question">
+      <label>1. இங்கே வா:</label>
+      <input type="text" id="q1">
+    </div>
+    <div class="question">
+      <label>2. அங்கே போ:</label>
+      <input type="text" id="q2">
+    </div>
+    <div class="question">
+      <label>3. அது என்ன?:</label>
+      <input type="text" id="q3">
+    </div>
+    <div class="question">
+      <label>4. இது என்ன?:</label>
+      <input type="text" id="q4">
+    </div>
+    <div class="question">
+      <label>5. அது மாதிரி:</label>
+      <input type="text" id="q5">
+    </div>
+    <div class="question">
+      <label>6. இது மாதிரி:</label>
+      <input type="text" id="q6">
+    </div>
+
+    <button class="btn" onclick="checkAnswers()">Submit</button>
+  </div>
+
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h2>🎉 You completed the basic quiz!</h2>
+      <img src="congrats.jpg" alt="Congrats">
+    </div>
+  </div>
+
+  <script>
+    const answers = {
+      q1: "Come here",
+      q2: "Go there",
+      q3: "What is that",
+      q4: "What is this",
+      q5: "Like that",
+      q6: "Like this"
+    };
+
+    function checkAnswers() {
+      let correct = true;
+
+      for (let key in answers) {
+        const input = document.getElementById(key);
+        const userAnswer = input.value.trim();
+        if (userAnswer.toLowerCase() === answers[key].toLowerCase()) {
+          input.classList.remove('wrong');
+        } else {
+          input.classList.add('wrong');
+          correct = false;
+        }
+      }
+
+      if (correct) {
+        const popup = document.getElementById('popup');
+        popup.style.display = 'flex';
+
+        setTimeout(() => {
+          popup.style.display = 'none';
+        }, 5000);
+      }
+    }
+  </script>
+
+</body>
+</html>
